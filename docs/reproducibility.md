@@ -34,7 +34,9 @@ frames in `frames.jsonl.gz`.
 ## Repeating a run
 
 ```sh
-python -m phases_engine run ecosystem --seed 42 --config run.json-config.json
+# take the exact parameters from the original record
+python -c "import json; json.dump(json.load(open('run.json'))['config'], open('config.json', 'w'))"
+python -m phases_engine run ecosystem --seed 42 --config config.json
 ```
 
 Compare the printed `metrics_hash` with the original. A difference means the

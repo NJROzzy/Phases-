@@ -15,8 +15,22 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - run: pip install -e "engine[dev]"
+      - run: pip install -e "engine[dev]" -e "api[dev]"
       - run: pytest engine/tests -q
+      - run: pytest api/tests -q
+        working-directory: api
+
+  api-image:
+    name: API Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f api/Dockerfile -t phases-api .
+      - name: Container answers health checks
+        run: |
+          docker run -d --name api -p 8000:8000 phases-api
+          for i in $(seq 1 30); do curl -sf localhost:8000/api/v1/health && exit 0; sleep 1; done
+          docker logs api; exit 1
 
   site:
     name: Site (browser tests)
