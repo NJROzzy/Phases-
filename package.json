@@ -1,0 +1,12 @@
+{
+  "name": "phases",
+  "private": true,
+  "description": "PHASES — static site, interactive laboratory and browser tests",
+  "scripts": {
+    "serve": "python3 -m http.server 8080",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
+  }
+}

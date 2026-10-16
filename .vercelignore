@@ -1,3 +1,13 @@
 tools
 .venv
 README.md
+node_modules
+tests
+package.json
+package-lock.json
+playwright.config.js
+.github
+engine
+api
+docs
+data
