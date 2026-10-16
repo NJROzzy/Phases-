@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "audio" / "echo"
-PAGES = ["index.html", "worlds.html"]
+PAGES = ["index.html", "worlds.html", "lab.html"]
 MODEL = os.environ.get("ECHO_MODEL", "tts_models/en/ljspeech/vits")
 SPEAKER = os.environ.get("ECHO_SPEAKER")  # only for multi-speaker models, e.g. p230 for vctk/vits
 CHROME = os.environ.get("CHROME", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")

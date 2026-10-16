@@ -2,6 +2,7 @@
 (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const onWorlds = !!document.getElementById("sandbox");
+  const onLab = !!document.getElementById("lab");
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
@@ -56,8 +57,25 @@
   const SAY = {
     greetHome: "Hi, welcome to Phases! I'm Echo, and I'll be your guide through the life of a simulation. Press V whenever you want to talk to me, or press N, and I'll walk you through it.",
     greetWorlds: "Welcome to Worlds! I'm Echo. Press V any time you want to talk to me.",
-    helpHome: "Sure. You can ask me to read this page, or say a phase, like phase three, or emergence. I can show you the cycle, take you to the worlds, or the physics engine. And say stop whenever you like.",
-    helpWorlds: "Sure. You can ask me to read this page, or jump to robotics, the environment, or the universe. I can show you the physics engine, or the playground. There, try gravity moon, zero, or orbit, or say reset. Say home to go back, or stop whenever you like.",
+    helpHome: "Sure. You can ask me to read this page, or say a phase, like phase three, or emergence. I can show you the cycle, take you to the worlds, the lab, or the physics engine. And say stop whenever you like.",
+    helpWorlds: "Sure. You can ask me to read this page, or jump to robotics, the environment, or the universe. I can show you the physics engine, or the playground. There, try gravity moon, zero, or orbit, or say reset. Say lab to run your own experiments, home to go back, or stop whenever you like.",
+    helpLab: "Here, you can say run experiment, pause, resume, or cancel. Say next cycle to build on the last run, or ask for the workspace, the dashboard, or the history. And say stop whenever you like.",
+    greetLab: "Welcome to the lab! I'm Echo. Say run experiment when you're ready, or say help to hear what I can do here.",
+    labRun: "Starting the experiment. Watch the phases light up as it runs.",
+    labBusy: "I can't start it just yet. Check the form for anything that needs fixing.",
+    labDemo: "The lab is in demo mode, so I'll replay the recorded run. To run your own experiments, start the local API and connect to it.",
+    labReplay: "Replaying the recorded run.",
+    labPaused: "Paused. Say resume when you're ready.",
+    labResumed: "Resuming.",
+    labCancelled: "Okay, cancelling the run.",
+    labSkipped: "Skipping to the end.",
+    labNothing: "There's no run going right now.",
+    labNext: "I've set up the next cycle from this one. Change what you want to test, then run it.",
+    labNoCycle: "Finish a run first, then we can build the next cycle from it.",
+    labWorkspace: "Here's the workspace. Start with your hypothesis, then set the parameters.",
+    labDashboard: "Here's the live dashboard.",
+    labHistory: "Here's your experiment history.",
+    goLab: "Sure, let's go to the lab.",
     hello: "Hey there! I'm Echo. I can show you around, or read things out for you. Just ask.",
     unknown: "Sorry, I didn't quite catch that. Say help, and I'll tell you what I can do.",
     tourEnd: "And that's the tour. If you want to explore more, just ask me for help.",
@@ -273,6 +291,10 @@
   const domainLine = (d) => `${text($("h3", d))}. ${domainBody(d)}`;
 
   function buildScript() {
+    if (onLab) {
+      const section = (id) => ({ el: $(`#${id}`), say: `${text($(`#${id} h2`))}. ${text($(`#${id} .section-intro`))}` });
+      return [{ el: $(".hero"), say: text($(".lede")) }, section("workspace"), section("dashboard"), section("history")];
+    }
     if (onWorlds) {
       return [
         { el: $(".hero"), say: text($(".lede")) },
@@ -371,8 +393,34 @@
     log("you", raw);
     blip(660, 0.08, "triangle", 0.03);
 
+    if (onLab) {
+      const demo = document.body.dataset.labMode === "demo";
+      const press = (name) => {
+        const b = $(`[data-echo="${name}"]`);
+        if (!b || b.disabled || b.hidden) return false;
+        b.click();
+        return true;
+      };
+      if (/\b(run|start|launch|begin)\b.*\b(experiment|simulation|run|it)\b|^(run|go)$/.test(t)) {
+        if (demo) { press("replay"); scrollToId("dashboard"); return speak(SAY.labDemo); }
+        scrollToId("workspace");
+        return speak(press("run") ? SAY.labRun : SAY.labBusy);
+      }
+      if (demo && /\b(replay|again)\b/.test(t)) { press("replay"); scrollToId("dashboard"); return speak(SAY.labReplay); }
+      if (/\bpause\b/.test(t) && press("pause")) return speak(SAY.labPaused);
+      if (/\b(resume|continue|unpause)\b/.test(t)) return speak(press("resume") ? SAY.labResumed : SAY.labNothing);
+      if (/\b(cancel|abort|skip)\b/.test(t)) return speak(press("cancel") ? (demo ? SAY.labSkipped : SAY.labCancelled) : SAY.labNothing);
+      if (/\b(next|new) cycle\b|\biterate\b/.test(t)) return speak(press("next") ? SAY.labNext : demo ? SAY.labDemo : SAY.labNoCycle);
+      if (/\b(workspace|design|conception|form|parameters)\b/.test(t)) { scrollToId("workspace"); return speak(SAY.labWorkspace); }
+      if (/\b(dashboard|live|world|charts?)\b/.test(t)) { scrollToId("dashboard"); return speak(SAY.labDashboard); }
+      if (/\b(history|cycles)\b/.test(t)) { scrollToId("history"); return speak(SAY.labHistory); }
+      if (/\b(home|phases|back)\b/.test(t)) return go("index.html", SAY.goHome);
+      if (/\bworlds?\b/.test(t)) return go("worlds.html", SAY.goWorlds);
+    }
+
     if (/\b(stop|quiet|silence|shut up|pause|cancel)\b/.test(t)) { stopSpeaking(); log("echo", "Okay, I'll be quiet."); return; }
-    if (/\b(help|commands|what can (you|i) (do|say))\b/.test(t)) return speak(onWorlds ? SAY.helpWorlds : SAY.helpHome);
+    if (/\b(help|commands|what can (you|i) (do|say))\b/.test(t)) return speak(onLab ? SAY.helpLab : onWorlds ? SAY.helpWorlds : SAY.helpHome);
+    if (!onLab && /\b(lab|laboratory|experiments?)\b/.test(t)) return go("lab.html", SAY.goLab);
     if (/\b(change|next|switch|another|different) (your )?voice\b/.test(t)) {
       const choices = voiceChoices();
       if (choices.length < 2) return speak(SAY.oneVoice);
@@ -685,7 +733,7 @@
   // Boot sequence (once per session)
   // ============================================================
   function greet() {
-    speak(onWorlds ? SAY.greetWorlds : SAY.greetHome);
+    speak(onLab ? SAY.greetLab : onWorlds ? SAY.greetWorlds : SAY.greetHome);
   }
 
   if (!store.sget("phases-booted")) {
