@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phases</title>
+  <meta name="description" content="Phases — the life stages of a simulation, from first idea to final archive.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav">
+      <a href="#" class="logo">Phases</a>
+      <ul>
+        <li><a href="#stages">Stages</a></li>
+        <li><a href="#cycle">The Cycle</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <div class="hero-content">
+      <p class="eyebrow">The life stages of a simulation</p>
+      <h1>Every world has a<br><span class="accent">beginning, middle and end.</span></h1>
+      <p class="lede">
+        A simulation is born, grows, surprises its makers, and eventually stops.
+        Phases walks through each stage of that life — what happens, what matters,
+        and what can go wrong.
+      </p>
+      <a href="#stages" class="button">Explore the phases</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="stages" class="stages">
+      <h2>The six phases</h2>
+      <p class="section-intro">Click a phase to see what happens inside it.</p>
+
+      <ol class="timeline">
+        <li class="phase" data-phase="1">
+          <button class="phase-head" aria-expanded="false">
+            <span class="phase-num">01</span>
+            <span class="phase-title">Conception</span>
+            <span class="phase-tag">The idea</span>
+          </button>
+          <div class="phase-body">
+            <p>Before a single line runs, someone asks a question: <em>what if?</em>
+              This phase defines the purpose of the simulation, the rules of its world,
+              and which parts of reality are worth modeling — and which can be left out.</p>
+            <ul>
+              <li>Define the question the simulation must answer</li>
+              <li>Choose the level of detail (atoms, agents, or whole systems)</li>
+              <li>Write down assumptions so they can be challenged later</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="phase" data-phase="2">
+          <button class="phase-head" aria-expanded="false">
+            <span class="phase-num">02</span>
+            <span class="phase-title">Initialization</span>
+            <span class="phase-tag">Birth</span>
+          </button>
+          <div class="phase-body">
+            <p>The world is seeded. Starting conditions, random seeds, parameters and
+              initial populations are set. Small choices here can ripple into very
+              different futures.</p>
+            <ul>
+              <li>Load starting state and parameters</li>
+              <li>Fix a random seed for reproducibility</li>
+              <li>Validate that the initial world is consistent</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="phase" data-phase="3">
+          <button class="phase-head" aria-expanded="false">
+            <span class="phase-num">03</span>
+            <span class="phase-title">Execution</span>
+            <span class="phase-tag">Growth</span>
+          </button>
+          <div class="phase-body">
+            <p>Time begins to move. Tick by tick, the rules are applied and the world
+              evolves. This is the longest phase — the simulation's working life.</p>
+            <ul>
+              <li>Advance the clock in fixed or adaptive steps</li>
+              <li>Apply rules, physics and agent decisions</li>
+              <li>Watch performance and numerical stability</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="phase" data-phase="4">
+          <button class="phase-head" aria-expanded="false">
+            <span class="phase-num">04</span>
+            <span class="phase-title">Emergence</span>
+            <span class="phase-tag">Maturity</span>
+          </button>
+          <div class="phase-body">
+            <p>Patterns appear that nobody programmed directly — flocks, traffic jams,
+              markets, ecosystems. The simulation starts to tell its makers something
+              new about the world it imitates.</p>
+            <ul>
+              <li>Spot behavior that arises from simple rules</li>
+              <li>Separate genuine insight from artifacts and bugs</li>
+              <li>Decide whether to intervene or keep observing</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="phase" data-phase="5">
+          <button class="phase-head" aria-expanded="false">
+            <span class="phase-num">05</span>
+            <span class="phase-title">Observation</span>
+            <span class="phase-tag">Reflection</span>
+          </button>
+          <div class="phase-body">
+            <p>Data is collected, measured and compared against reality. Did the
+              simulation answer the question it was born to answer?</p>
+            <ul>
+              <li>Analyze outputs and visualize results</li>
+              <li>Validate against real-world data</li>
+              <li>Run variations to test how sensitive results are</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="phase" data-phase="6">
+          <button class="phase-head" aria-expanded="false">
+            <span class="phase-num">06</span>
+            <span class="phase-title">Termination</span>
+            <span class="phase-tag">Rest</span>
+          </button>
+          <div class="phase-body">
+            <p>Every simulation ends — by reaching its goal, running out of time, or
+              collapsing. Its state is saved, its lessons are written down, and its
+              ending often becomes the seed of the next one.</p>
+            <ul>
+              <li>Stop cleanly and archive final state</li>
+              <li>Document findings and known limitations</li>
+              <li>Feed lessons into the next conception</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="cycle" class="cycle">
+      <h2>It's a cycle, not a line</h2>
+      <p class="section-intro">
+        The end of one simulation is the beginning of the next. Watch the phases turn.
+      </p>
+      <div class="ring" aria-hidden="true">
+        <div class="ring-center">
+          <span id="ring-label">Conception</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About Phases</h2>
+      <p>
+        Phases is a small guide to how simulations live and die — useful whether
+        you build them, study them, or just wonder whether you're living in one.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Phases. Every world has its seasons.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
