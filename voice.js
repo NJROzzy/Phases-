@@ -435,7 +435,7 @@
   const readout = $(".hud-readout", hud);
   const clock = $(".hud-clock", hud);
   let mx = 0, my = 0;
-  addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  addEventListener("pointermove", (e) => { mx = Math.round(e.clientX); my = Math.round(e.clientY); }, { passive: true });
   function tickHud() {
     const max = document.documentElement.scrollHeight - innerHeight;
     const pct = max > 0 ? Math.round((scrollY / max) * 100) : 0;
