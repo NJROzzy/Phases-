@@ -58,30 +58,57 @@
   let currentUtterance = null; // held so Chrome doesn't garbage-collect it before onend
   let safetyTimer = 0;
 
-  function pickVoice() {
+  let voices = []; // English voices, most natural first
+
+  // Rank voices so neural / premium ones win over robotic system defaults
+  const NOVELTY = /albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|junior|ralph|kathy|hysterical|deranged|pipe|eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley/i;
+  const FAVOURITES = /ava|zoe|allison|samantha|evan|nathan|jenny|aria|guy|libby|sonia|ryan|natasha|serena|daniel|moira|karen/i;
+  function scoreVoice(v) {
+    let s = 0;
+    if (/natural|neural/i.test(v.name)) s += 120;
+    if (/online/i.test(v.name)) s += 40;
+    if (/premium/i.test(v.name)) s += 100;
+    if (/enhanced/i.test(v.name)) s += 80;
+    if (/^google/i.test(v.name)) s += 60;
+    if (FAVOURITES.test(v.name)) s += 25;
+    if (/^en-(US|GB)/i.test(v.lang)) s += 10;
+    if (!v.localService) s += 5;
+    if (NOVELTY.test(v.name)) s -= 500;
+    return s;
+  }
+
+  function loadVoices() {
     if (!synth) return;
-    const voices = synth.getVoices();
-    const prefs = ["Google UK English Female", "Samantha", "Karen", "Daniel", "Google US English", "Microsoft Aria", "Microsoft Jenny"];
-    voice =
-      prefs.map((n) => voices.find((v) => v.name.includes(n))).find(Boolean) ||
-      voices.find((v) => v.lang.startsWith("en-GB")) ||
-      voices.find((v) => v.lang.startsWith("en")) ||
-      null;
+    voices = synth
+      .getVoices()
+      .filter((v) => /^en/i.test(v.lang) && !NOVELTY.test(v.name))
+      .sort((a, b) => scoreVoice(b) - scoreVoice(a));
+    const saved = store.get("phases-voice");
+    voice = voices.find((v) => v.name === saved) || voices[0] || null;
+    renderVoiceSelect && renderVoiceSelect();
   }
+  let renderVoiceSelect = null;
   if (synth) {
-    pickVoice();
-    synth.addEventListener?.("voiceschanged", pickVoice);
+    loadVoices();
+    synth.addEventListener?.("voiceschanged", loadVoices);
   }
+
+  function setVoice(v, announce = true) {
+    if (!v) return;
+    voice = v;
+    store.set("phases-voice", v.name);
+    renderVoiceSelect && renderVoiceSelect();
+    if (announce) speak(`Hi, this is how I sound now. Do you like it?`);
+  }
+
+  // Split into sentences so each gets a natural pause (and Chrome doesn't cut off long speech)
+  const sentences = (t) => t.match(/[^.!?]+[.!?]+["”’]?|[^.!?]+$/g)?.map((s) => s.trim()).filter(Boolean) || [t];
 
   function speak(text, onDone) {
     log("echo", text);
     const token = ++speakToken;
     if (!synth) { onDone && setTimeout(onDone, 1200); return; }
     synth.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    if (voice) u.voice = voice;
-    u.rate = 1.02;
-    u.pitch = 0.9;
     const finish = () => {
       if (token !== speakToken) return; // cancelled by a newer utterance
       speakToken++;
@@ -89,14 +116,26 @@
       setState(listening ? "listening" : "idle");
       onDone && onDone();
     };
-    u.onstart = () => setState("speaking");
-    u.onend = u.onerror = finish;
+    // Natural voices sound best at their default pitch and a relaxed pace
+    const natural = voice && scoreVoice(voice) >= 60;
+    const parts = sentences(text);
+    parts.forEach((part, i) => {
+      const u = new SpeechSynthesisUtterance(part);
+      if (voice) { u.voice = voice; u.lang = voice.lang; }
+      u.rate = natural ? 1 : 0.95;
+      u.pitch = 1;
+      u.onstart = () => setState("speaking");
+      if (i === parts.length - 1) {
+        u.onend = finish;
+        currentUtterance = u;
+      }
+      u.onerror = (e) => { if (e.error !== "interrupted" && e.error !== "canceled") finish(); };
+      synth.speak(u);
+    });
     // Some browsers never fire onend; fall back to an estimate of the speaking time
     clearTimeout(safetyTimer);
-    safetyTimer = setTimeout(finish, 2500 + text.split(/\s+/).length * 450);
-    currentUtterance = u;
+    safetyTimer = setTimeout(finish, 2500 + text.split(/\s+/).length * 450 + parts.length * 300);
     setState("speaking");
-    synth.speak(u);
   }
 
   function stopSpeaking() {
@@ -117,21 +156,21 @@
     if (onWorlds) {
       return [
         { el: $(".hero"), say: text($(".lede")) },
-        ...$$(".domain").map((d) => ({ el: d, say: `${text($("h3", d))}. ${text($(".scale", d))}. ${text($(":scope > p:not(.domain-num):not(.scale)", d))}` })),
+        ...$$(".domain").map((d) => ({ el: d, say: `${text($("h3", d))}, measured in ${text($(".scale", d)).toLowerCase().replace(" · ", " and ")}. ${text($(":scope > p:not(.domain-num):not(.scale)", d))}` })),
         { el: $("#engine"), say: `Inside the physics engine. ${text($("#engine .section-intro"))}` },
-        ...$$(".loop-step").map((s, i) => ({ el: s, say: `Step ${i + 1}. ${text($("h4", s))}. ${text($("p", s))}` })),
-        { el: $("#playground"), say: `${text($("#playground .section-intro"))} Try saying: gravity moon.` },
+        ...$$(".loop-step").map((s, i) => ({ el: s, say: `Step ${i + 1}: ${text($("h4", s))}. ${text($("p", s))}` })),
+        { el: $("#playground"), say: `${text($("#playground .section-intro"))} Go on, try saying gravity moon.` },
       ];
     }
     return [
       { el: $(".hero"), say: text($(".lede")) },
-      ...$$(".phase").map((p) => ({
+      ...$$(".phase").map((p, i) => ({
         el: p,
         open: p,
-        say: `Phase ${text($(".phase-num", p))}. ${text($(".phase-title", p))}. ${text($(".phase-body p", p))}`,
+        say: `Phase ${i + 1}: ${text($(".phase-title", p))}. ${text($(".phase-body p", p))}`,
       })),
       { el: $("#cycle"), say: text($("#cycle .section-intro")) },
-      { el: $("#about"), say: `${text($("#about p"))} Say worlds to explore simulated worlds.` },
+      { el: $("#about"), say: `${text($("#about p"))} If you're curious, say worlds, and I'll take you to the simulated worlds.` },
     ];
   }
 
@@ -159,7 +198,7 @@
       if (i >= script.length) {
         narrating = false;
         focusEl(null);
-        speak("End of tour. Say help for more commands.");
+        speak("And that's the tour. If you want to explore more, just ask me for help.");
         return;
       }
       const s = script[i++];
@@ -196,8 +235,8 @@
   }
 
   const HELP = onWorlds
-    ? "You can say: read this page, robotics, environment, universe, physics engine, playground, gravity earth, moon, zero, or orbit, reset, home, or stop."
-    : "You can say: read this page, phase one through six, or a phase name like emergence, cycle, worlds, physics engine, scroll down, top, or stop.";
+    ? "Sure. You can ask me to read this page, or jump to robotics, the environment, or the universe. I can show you the physics engine, or the playground. There, try gravity moon, zero, or orbit, or say reset. Say home to go back, or stop whenever you like."
+    : "Sure. You can ask me to read this page, or say a phase, like phase three, or emergence. I can show you the cycle, take you to the worlds, or the physics engine. And say stop whenever you like.";
 
   function handleCommand(raw) {
     const t = raw.toLowerCase().replace(/[.,!?]/g, "").trim();
@@ -205,12 +244,17 @@
     log("you", raw);
     blip(660, 0.08, "triangle", 0.03);
 
-    if (/\b(stop|quiet|silence|shut up|pause|cancel)\b/.test(t)) { stopSpeaking(); log("echo", "Standing by."); return; }
+    if (/\b(stop|quiet|silence|shut up|pause|cancel)\b/.test(t)) { stopSpeaking(); log("echo", "Okay, I'll be quiet."); return; }
     if (/\b(help|commands|what can (you|i) (do|say))\b/.test(t)) return speak(HELP);
+    if (/\b(change|next|switch|another|different) (your )?voice\b/.test(t)) {
+      if (voices.length < 2) return speak("This browser only gives me one voice, I'm afraid.");
+      const i = voices.indexOf(voice);
+      return setVoice(voices[(i + 1) % voices.length]);
+    }
     if (/\b(read|narrate|tour|guide|explain this)\b/.test(t)) return narrate();
-    if (/\b(hello|hi|hey|who are you)\b/.test(t)) return speak("Hello. I'm Echo, the voice of Phases. Say help to hear what I can do.");
-    if (/\btime\b/.test(t)) return speak(`It is ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} in your world.`);
-    if (/\b(top|beginning|start)\b/.test(t) || (!onWorlds && /\bhome\b/.test(t))) { scrollTo({ top: 0, behavior: "smooth" }); return speak("Back to the top."); }
+    if (/\b(hello|hi|hey|who are you)\b/.test(t)) return speak("Hey there! I'm Echo. I can show you around, or read things out for you. Just ask.");
+    if (/\btime\b/.test(t)) return speak(`It's ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}, at least in your world.`);
+    if (/\b(top|beginning|start)\b/.test(t) || (!onWorlds && /\bhome\b/.test(t))) { scrollTo({ top: 0, behavior: "smooth" }); return speak("Okay, back to the top."); }
     if (/\bscroll down|down\b/.test(t)) { scrollBy({ top: innerHeight * 0.8, behavior: "smooth" }); return; }
     if (/\bscroll up|up\b/.test(t)) { scrollBy({ top: -innerHeight * 0.8, behavior: "smooth" }); return; }
 
@@ -219,34 +263,34 @@
       if (g && (/\bgravity|mode|switch|set\b/.test(t) || g[1] !== "earth")) {
         $(`[data-gravity="${g[1]}"]`).click();
         scrollToId("playground");
-        return speak(g[1] === "orbit" ? "Orbit mode. Every body now circles the central star." : `Gravity set to ${g[1] === "zero" ? "zero" : g[1]}.`);
+        return speak(g[1] === "orbit" ? "Orbit mode. Watch them all swing around the star." : { earth: "Back to Earth gravity. Everything falls normally again.", moon: "Moon gravity. Things float down nice and slowly now.", zero: "Zero gravity. Nothing's holding them down anymore." }[g[1]]);
       }
-      if (/\breset|restart\b/.test(t)) { $("#sandbox-reset").click(); scrollToId("playground"); return speak("Simulation reset."); }
+      if (/\breset|restart\b/.test(t)) { $("#sandbox-reset").click(); scrollToId("playground"); return speak("Done. Fresh start."); }
       if (/\b(drop|add|spawn)\b/.test(t)) {
         const c = $("#sandbox");
         const r = c.getBoundingClientRect();
         c.dispatchEvent(new PointerEvent("pointerdown", { clientX: r.left + r.width * (0.2 + Math.random() * 0.6), clientY: r.top + 60 }));
         scrollToId("playground");
-        return speak("Dropping new bodies.");
+        return speak("Here come a few more.");
       }
       const domains = $$(".domain");
       const d = /robot/.test(t) ? 0 : /environment|climate|weather|planet/.test(t) ? 1 : /universe|galax|cosmo|space/.test(t) ? 2 : -1;
       if (d >= 0) { focusEl(domains[d]); return speak(`${text($("h3", domains[d]))}. ${text($(":scope > p:not(.domain-num):not(.scale)", domains[d]))}`); }
       if (/\b(engine|physics)\b/.test(t)) { scrollToId("engine"); return speak(text($("#engine .section-intro"))); }
-      if (/\b(playground|sandbox|demo)\b/.test(t)) { scrollToId("playground"); return speak("The playground. Tap inside to drop bodies, or tell me a gravity mode."); }
-      if (/\b(home|phases|back|life stages)\b/.test(t)) return go("index.html", "Returning to the phases.");
+      if (/\b(playground|sandbox|demo)\b/.test(t)) { scrollToId("playground"); return speak("Here's the playground. Tap inside to drop things in, or tell me which gravity you'd like."); }
+      if (/\b(home|phases|back|life stages)\b/.test(t)) return go("index.html", "Sure, heading back to the phases.");
     } else {
       const p = findPhase(t);
       if (p) { openPhase(p); focusEl(p); return speak(`${text($(".phase-title", p))}. ${text($(".phase-body p", p))}`); }
-      if (/\b(stages|phases|timeline)\b/.test(t)) { scrollToId("stages"); return speak("The six phases of a simulation's life."); }
+      if (/\b(stages|phases|timeline)\b/.test(t)) { scrollToId("stages"); return speak("Here they are. The six phases of a simulation's life."); }
       if (/\bcycle\b/.test(t)) { scrollToId("cycle"); return speak(text($("#cycle .section-intro"))); }
       if (/\babout\b/.test(t)) { scrollToId("about"); return speak(text($("#about p"))); }
-      if (/\b(engine|physics)\b/.test(t)) return go("worlds.html#engine", "Opening the physics engine.");
-      if (/\b(playground|sandbox|demo|gravity)\b/.test(t)) return go("worlds.html#playground", "Opening the physics playground.");
-      if (/\b(world|worlds|robot|robotics|environment|universe|climate|galaxy)\b/.test(t)) return go("worlds.html", "Opening simulated worlds.");
+      if (/\b(engine|physics)\b/.test(t)) return go("worlds.html#engine", "Sure, let's look inside the physics engine.");
+      if (/\b(playground|sandbox|demo|gravity)\b/.test(t)) return go("worlds.html#playground", "Let's go play with some physics.");
+      if (/\b(world|worlds|robot|robotics|environment|universe|climate|galaxy)\b/.test(t)) return go("worlds.html", "Sure, let's go to the worlds.");
     }
 
-    speak("Command not recognised. Say help to hear what I can do.");
+    speak("Sorry, I didn't quite catch that. Say help, and I'll tell you what I can do.");
   }
 
   // ============================================================
@@ -314,6 +358,10 @@
   dock.innerHTML = `
     <div class="dock-panel" id="dock-panel" hidden>
       <div class="dock-log" aria-live="polite"></div>
+      <label class="dock-voice">
+        <span>voice</span>
+        <select aria-label="ECHO voice"></select>
+      </label>
       <form class="dock-form">
         <span class="dock-prompt">&gt;</span>
         <input type="text" placeholder="type a command — try “help”" aria-label="Command" autocomplete="off" spellcheck="false">
@@ -344,6 +392,27 @@
   const readBtn = $(".dock-read", dock);
   const soundBtn = $(".dock-sound", dock);
   const stateEl = $(".dock-state", dock);
+
+  const voiceSelect = $(".dock-voice select", dock);
+  renderVoiceSelect = () => {
+    const label = $(".dock-voice", dock);
+    label.hidden = !voices.length;
+    voiceSelect.replaceChildren(
+      ...voices.map((v) => {
+        const o = document.createElement("option");
+        o.value = v.name;
+        const tag = scoreVoice(v) >= 80 ? " ★ natural" : "";
+        o.textContent = `${v.name.replace(/^Microsoft |^Google /, "").replace(/ Online \(Natural\)| - English.*$/, "")} (${v.lang})${tag}`;
+        o.selected = voice && v.name === voice.name;
+        return o;
+      })
+    );
+  };
+  renderVoiceSelect();
+  voiceSelect.addEventListener("change", () => {
+    unlockAudio();
+    setVoice(voices.find((v) => v.name === voiceSelect.value));
+  });
 
   function openPanel(open = panel.hidden) {
     panel.hidden = !open;
@@ -483,8 +552,8 @@
   // ============================================================
   function greet() {
     speak(onWorlds
-      ? "Welcome to Worlds. I'm Echo. Say help, or press V to talk to me."
-      : "Welcome to Phases. I'm Echo, your guide through the life of a simulation. Press V to talk to me, or N and I'll narrate.");
+      ? "Welcome to Worlds! I'm Echo. Press V any time you want to talk to me."
+      : "Hi, welcome to Phases! I'm Echo, and I'll be your guide through the life of a simulation. Press V whenever you want to talk to me, or press N, and I'll walk you through it.");
   }
 
   if (!store.sget("phases-booted")) {

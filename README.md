@@ -15,6 +15,7 @@ Every page has ECHO, a voice interface in the bottom-right corner.
 
 - **Talk** — press the mic or `V`, then say a command (Chrome, Edge and Safari). You can also type commands in the console.
 - **Narrate** — press the speaker or `N` for a spoken tour of the page; `Esc` stops it.
+- **Voice** — ECHO picks the most natural voice your browser offers (neural, premium or Google voices first). Change it from the console's voice menu or say "change voice".
 - **Try saying** — "help", "phase three", "emergence", "worlds", "physics engine", "gravity moon", "orbit", "reset", "read this page".
 
 ## Run locally

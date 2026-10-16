@@ -998,6 +998,36 @@ body::after {
 }
 .dock-log .log-you { color: var(--text); }
 .dock-log .log-sys { color: #7a7a7a; font-style: italic; }
+.dock-voice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-top: 1px solid #222;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6a6a6a;
+}
+.dock-voice[hidden] { display: none; }
+.dock-voice select {
+  flex: 1;
+  min-width: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #111 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 10px center;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  color: var(--text);
+  font: 0.75rem var(--mono);
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 6px 28px 6px 10px;
+  cursor: pointer;
+}
+.dock-voice select:focus { outline: 1px solid #666; }
+.dock-voice option { background: #111; color: var(--text); }
+
 .dock-form {
   display: flex;
   align-items: center;
