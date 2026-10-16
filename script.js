@@ -40,6 +40,7 @@ function onScroll() {
   const max = document.documentElement.scrollHeight - innerHeight;
   progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
 
+  if (!timeline) return;
   const rect = timeline.getBoundingClientRect();
   const fill = (innerHeight * 0.6 - rect.top) / rect.height;
   timeline.style.setProperty("--fill", Math.min(1, Math.max(0, fill)).toFixed(3));
@@ -170,7 +171,7 @@ const num = document.getElementById("ring-num");
 const names = phases.map((p) => p.querySelector(".phase-title").textContent);
 const PERIOD = 12000; // ms per full turn
 
-const dots = names.map((_, i) => {
+const dots = !orbit ? [] : names.map((_, i) => {
   const dot = document.createElement("span");
   dot.className = "orbit-dot";
   const angle = (i / names.length) * Math.PI * 2 - Math.PI / 2;
@@ -182,7 +183,7 @@ const dots = names.map((_, i) => {
 
 let current = -1;
 function showPhase(i) {
-  if (i === current) return;
+  if (!orbit || i === current) return;
   current = i;
   dots.forEach((d, k) => d.classList.toggle("on", k === i));
   label.classList.add("swap");
@@ -202,10 +203,12 @@ function frame(t) {
 
   drawField();
 
-  const turn = (t % PERIOD) / PERIOD;
-  arm.style.transform = `rotate(${turn * 360}deg)`;
-  // Highlight the phase the arm is passing through (centred on each dot)
-  showPhase(Math.floor((turn * names.length + 0.5) % names.length));
+  if (orbit) {
+    const turn = (t % PERIOD) / PERIOD;
+    arm.style.transform = `rotate(${turn * 360}deg)`;
+    // Highlight the phase the arm is passing through (centred on each dot)
+    showPhase(Math.floor((turn * names.length + 0.5) % names.length));
+  }
 
   requestAnimationFrame(frame);
 }
