@@ -17,7 +17,7 @@ jobs:
           cache: pip
       - run: pip install -e "engine[dev]" -e "api[dev]"
       - run: pytest engine/tests -q
-      - run: pytest api/tests -q
+      - run: pytest tests -q
         working-directory: api
 
   api-image:
