@@ -8,3 +8,4 @@ playwright-report/
 .pytest_cache/
 /data/
 .venv-voice
+.env*

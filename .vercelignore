@@ -10,3 +10,4 @@ data
 .venv
 .venv-voice
 .vercel
+.env*
