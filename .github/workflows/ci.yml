@@ -6,32 +6,6 @@ on:
   pull_request:
 
 jobs:
-  engine:
-    name: Engine (pytest)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-      - run: pip install -e "engine[dev]" -e "api[dev]"
-      - run: pytest engine/tests -q
-      - run: pytest tests -q
-        working-directory: api
-
-  api-image:
-    name: API Docker image
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: docker build -f api/Dockerfile -t phases-api .
-      - name: Container answers health checks
-        run: |
-          docker run -d --name api -p 8000:8000 phases-api
-          for i in $(seq 1 30); do curl -sf localhost:8000/api/v1/health && exit 0; sleep 1; done
-          docker logs api; exit 1
-
   site:
     name: Site (browser tests)
     runs-on: ubuntu-latest
@@ -41,21 +15,9 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-      - run: pip install -e engine -e api
-      - name: Start the laboratory API for live Lab tests
-        run: |
-          PHASES_DATA=$RUNNER_TEMP/phases PHASES_CORS=http://localhost:4173 nohup python -m phases_api > $RUNNER_TEMP/api.log 2>&1 &
-          for i in $(seq 1 30); do curl -sf 127.0.0.1:8000/api/v1/health && exit 0; sleep 1; done
-          cat $RUNNER_TEMP/api.log; exit 1
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
-        env:
-          PHASES_E2E_API: http://127.0.0.1:8000
       - if: failure()
         uses: actions/upload-artifact@v4
         with:

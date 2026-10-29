@@ -1,4 +1,0 @@
-coqui-tts>=0.27,<0.28
-transformers>=4.57,<5
-torch
-torchaudio

@@ -12,7 +12,6 @@ module.exports = defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     channel: process.env.CI ? undefined : "chrome",
-    launchOptions: { args: ["--autoplay-policy=no-user-gesture-required"] },
   },
   projects: [
     { name: "desktop", use: { viewport: { width: 1280, height: 800 } } },

@@ -1,14 +1,12 @@
-tools
-.venv
 README.md
 node_modules
 tests
+test-results
 package.json
 package-lock.json
 playwright.config.js
 .github
-engine
-api
-docs
 data
+.venv
 .venv-voice
+.vercel

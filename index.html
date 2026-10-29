@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Phases</title>
-  <meta name="description" content="Phases — the life stages of a simulation, from first idea to final archive.">
+  <title>Phases of NJR</title>
+  <meta name="description" content="Phases of NJR — what I'm working on: Layers, Agent and Quantum.">
   <meta name="theme-color" content="#050505">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,153 +19,126 @@
 
   <header class="hero">
     <nav class="nav">
-      <a href="#" class="logo">Phases</a>
+      <a href="#" class="logo">NJR</a>
       <ul>
-        <li><a href="index.html" class="active" aria-current="page">Phases</a></li>
-        <li><a href="worlds.html">Worlds</a></li>
-        <li><a href="lab.html">Lab</a></li>
+        <li><a href="#phases">Phases</a></li>
+        <li><a href="#cycle">Cycle</a></li>
+        <li><a href="https://github.com/NJROzzy" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </nav>
     <div class="hero-content">
-      <p class="eyebrow">The life stages of a simulation</p>
+      <p class="eyebrow">Phases of NJR</p>
       <h1>
-        <span class="line"><span>Every world has a</span></span>
-        <span class="line"><span class="accent">beginning, middle and end.</span></span>
+        <span class="line"><span>Three phases of</span></span>
+        <span class="line"><span class="accent">what I'm building.</span></span>
       </h1>
       <p class="lede">
-        A simulation is born, grows, surprises its makers, and eventually stops.
-        Phases walks through each stage of that life — what happens, what matters,
-        and what can go wrong.
+        Each phase is a project I'm working on in public: learning the layers
+        under AI, building agents, and exploring quantum. Each one has its own
+        live site and repository.
       </p>
-      <a href="#stages" class="button">Explore the phases</a>
+      <a href="#phases" class="button">Explore the phases</a>
     </div>
     <div class="scroll-hint" aria-hidden="true"></div>
   </header>
 
   <main>
-    <section id="stages" class="stages">
-      <h2 class="reveal">The six phases</h2>
-      <p class="section-intro reveal" style="--d: 0.1s">Click a phase to see what happens inside it.</p>
+    <section id="phases" class="stages">
+      <h2 class="reveal">The three phases</h2>
+      <p class="section-intro reveal" style="--d: 0.1s">Click a phase to see what's in it.</p>
 
       <ol class="timeline">
         <li class="phase reveal">
           <button class="phase-head" aria-expanded="false">
             <span class="phase-num">01</span>
-            <span class="phase-title">Conception</span>
-            <span class="phase-tag">The idea</span>
+            <span class="phase-title">Layers</span>
+            <span class="phase-tag">Foundations</span>
             <span class="phase-icon" aria-hidden="true"></span>
           </button>
           <div class="phase-body"><div>
-            <p>Before a single line runs, someone asks a question: <em>what if?</em>
-              This phase defines the purpose of the simulation, the rules of its world,
-              and which parts of reality are worth modeling — and which can be left out.</p>
+            <p>A running log of my AI, ML and deep learning studies, one layer at a time:
+              notes, interactive labs and progress, from the math up to
+              robot simulators.</p>
             <ul>
-              <li>Define the question the simulation must answer</li>
-              <li>Choose the level of detail (atoms, agents, or whole systems)</li>
-              <li>Write down assumptions so they can be challenged later</li>
+              <li>Topics: math, Python and its libraries, ML and deep learning fundamentals, SQL, ROS, CUDA</li>
+              <li>Labs on neurons, XOR, gradient steps, learning rates, activations, initialization, BatchNorm and dropout</li>
+              <li>Simulation work in MuJoCo and Isaac Sim, plus biology and brain-and-nerve modules</li>
             </ul>
+            <dl class="project-meta">
+              <div><dt>Repo</dt><dd>Layerschecklist</dd></div>
+              <div><dt>Active</dt><dd>Sep 2026</dd></div>
+              <div><dt>Stack</dt><dd>Next.js · Vercel</dd></div>
+            </dl>
+            <div class="project-links">
+              <a class="button small" href="https://layerschecklist.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
+              <a class="button small ghost" href="https://github.com/NJROzzy/Layerschecklist" target="_blank" rel="noopener">Repository &nearr;</a>
+            </div>
           </div></div>
         </li>
 
         <li class="phase reveal">
           <button class="phase-head" aria-expanded="false">
             <span class="phase-num">02</span>
-            <span class="phase-title">Initialization</span>
-            <span class="phase-tag">Birth</span>
+            <span class="phase-title">Agent</span>
+            <span class="phase-tag">Building</span>
             <span class="phase-icon" aria-hidden="true"></span>
           </button>
           <div class="phase-body"><div>
-            <p>The world is seeded. Starting conditions, random seeds, parameters and
-              initial populations are set. Small choices here can ripple into very
-              different futures.</p>
+            <p>A collaborative workspace with SA on agentic AI: systems that plan,
+              use tools, act and iterate toward a goal. Its live site traces how AI
+              went from rule-based automation to agents, and measures our repo
+              against the agentic standards of 2026.</p>
             <ul>
-              <li>Load starting state and parameters</li>
-              <li>Fix a random seed for reproducibility</li>
-              <li>Validate that the initial world is consistent</li>
+              <li>Started from PyTorch foundations and a live single-neuron XOR demo</li>
+              <li>Maps the protocols, orchestration, security and governance that define agents today</li>
+              <li>Collects agent tools, open-source projects, and our own R&amp;D, organized into four pillars</li>
             </ul>
+            <dl class="project-meta">
+              <div><dt>Repo</dt><dd>AI-Agentic-Modal-Collaborative-</dd></div>
+              <div><dt>Active</dt><dd>Sep – Oct 2026</dd></div>
+              <div><dt>With</dt><dd>SA</dd></div>
+            </dl>
+            <div class="project-links">
+              <a class="button small" href="https://evolutionofaiagents-njr.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
+              <a class="button small ghost" href="https://github.com/NJROzzy/AI-Agentic-Modal-Collaborative-" target="_blank" rel="noopener">Repository &nearr;</a>
+            </div>
           </div></div>
         </li>
 
         <li class="phase reveal">
           <button class="phase-head" aria-expanded="false">
             <span class="phase-num">03</span>
-            <span class="phase-title">Execution</span>
-            <span class="phase-tag">Growth</span>
+            <span class="phase-title">Quantum</span>
+            <span class="phase-tag">Frontier</span>
             <span class="phase-icon" aria-hidden="true"></span>
           </button>
           <div class="phase-body"><div>
-            <p>Time begins to move. Tick by tick, the rules are applied and the world
-              evolves. This is the longest phase — the simulation's working life.</p>
+            <p>An interactive field guide to quantum physics: its history, its
+              real-world applications, and the research happening now.</p>
             <ul>
-              <li>Advance the clock in fixed or adaptive steps</li>
-              <li>Apply rules, physics and agent decisions</li>
-              <li>Watch performance and numerical stability</li>
+              <li>A lab with a qubit studio, double slit, entanglement (CHSH) and tunneling experiments</li>
+              <li>A quantum universe of 119 connected topics and a six-chapter evolution story</li>
+              <li>Quantum Live, a feed of new research from arXiv, IBM, Google Quantum AI, MIT and Nature</li>
             </ul>
-          </div></div>
-        </li>
-
-        <li class="phase reveal">
-          <button class="phase-head" aria-expanded="false">
-            <span class="phase-num">04</span>
-            <span class="phase-title">Emergence</span>
-            <span class="phase-tag">Maturity</span>
-            <span class="phase-icon" aria-hidden="true"></span>
-          </button>
-          <div class="phase-body"><div>
-            <p>Patterns appear that nobody programmed directly — flocks, traffic jams,
-              markets, ecosystems. The simulation starts to tell its makers something
-              new about the world it imitates.</p>
-            <ul>
-              <li>Spot behavior that arises from simple rules</li>
-              <li>Separate genuine insight from artifacts and bugs</li>
-              <li>Decide whether to intervene or keep observing</li>
-            </ul>
-          </div></div>
-        </li>
-
-        <li class="phase reveal">
-          <button class="phase-head" aria-expanded="false">
-            <span class="phase-num">05</span>
-            <span class="phase-title">Observation</span>
-            <span class="phase-tag">Reflection</span>
-            <span class="phase-icon" aria-hidden="true"></span>
-          </button>
-          <div class="phase-body"><div>
-            <p>Data is collected, measured and compared against reality. Did the
-              simulation answer the question it was born to answer?</p>
-            <ul>
-              <li>Analyze outputs and visualize results</li>
-              <li>Validate against real-world data</li>
-              <li>Run variations to test how sensitive results are</li>
-            </ul>
-          </div></div>
-        </li>
-
-        <li class="phase reveal">
-          <button class="phase-head" aria-expanded="false">
-            <span class="phase-num">06</span>
-            <span class="phase-title">Termination</span>
-            <span class="phase-tag">Rest</span>
-            <span class="phase-icon" aria-hidden="true"></span>
-          </button>
-          <div class="phase-body"><div>
-            <p>Every simulation ends — by reaching its goal, running out of time, or
-              collapsing. Its state is saved, its lessons are written down, and its
-              ending often becomes the seed of the next one.</p>
-            <ul>
-              <li>Stop cleanly and archive final state</li>
-              <li>Document findings and known limitations</li>
-              <li>Feed lessons into the next conception</li>
-            </ul>
+            <dl class="project-meta">
+              <div><dt>Repo</dt><dd>QuantumApplications</dd></div>
+              <div><dt>Active</dt><dd>Oct 2026</dd></div>
+              <div><dt>Stack</dt><dd>HTML · CSS · JS · Node</dd></div>
+            </dl>
+            <div class="project-links">
+              <a class="button small" href="https://quantumapplicationsbynjr.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
+              <a class="button small ghost" href="https://github.com/NJROzzy/QuantumApplications" target="_blank" rel="noopener">Repository &nearr;</a>
+            </div>
           </div></div>
         </li>
       </ol>
     </section>
 
     <section id="cycle" class="cycle">
-      <h2 class="reveal">It's a cycle, not a line</h2>
+      <h2 class="reveal">Learn, build, explore</h2>
       <p class="section-intro reveal" style="--d: 0.1s">
-        The end of one simulation is the beginning of the next. Watch the phases turn.
+        Each phase feeds the next: the layers make the agents possible, and the
+        frontier sends me back to learn again.
       </p>
       <div class="orbit reveal" style="--d: 0.2s" aria-hidden="true">
         <div class="orbit-ring"></div>
@@ -173,35 +146,34 @@
         <div class="orbit-arm"></div>
         <div class="orbit-center">
           <span id="ring-num">01</span>
-          <span id="ring-label">Conception</span>
+          <span id="ring-label">Layers</span>
         </div>
       </div>
     </section>
 
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>Conception</span><span>Initialization</span><span>Execution</span>
-        <span>Emergence</span><span>Observation</span><span>Termination</span>
-        <span>Conception</span><span>Initialization</span><span>Execution</span>
-        <span>Emergence</span><span>Observation</span><span>Termination</span>
+        <span>Layers</span><span>Agent</span><span>Quantum</span>
+        <span>Layers</span><span>Agent</span><span>Quantum</span>
+        <span>Layers</span><span>Agent</span><span>Quantum</span>
+        <span>Layers</span><span>Agent</span><span>Quantum</span>
       </div>
     </div>
 
     <section id="about" class="about">
-      <h2 class="reveal">About Phases</h2>
+      <h2 class="reveal">About</h2>
       <p class="reveal" style="--d: 0.1s">
-        Phases is a small guide to how simulations live and die — useful whether
-        you build them, study them, or just wonder whether you're living in one.
+        I'm NJR. Phases is where I keep track of what I'm working on. New phases
+        get added as new projects begin.
       </p>
-      <a href="worlds.html" class="button reveal" style="--d: 0.2s; margin-top: 32px">See simulated worlds &rarr;</a>
+      <a href="https://github.com/NJROzzy" target="_blank" rel="noopener" class="button reveal" style="--d: 0.2s; margin-top: 32px">Follow on GitHub &rarr;</a>
     </section>
   </main>
 
   <footer class="footer">
-    <p>&copy; <span id="year"></span> Phases. Every world has its seasons.</p>
+    <p>&copy; <span id="year"></span> Phases of NJR.</p>
   </footer>
 
   <script src="script.js"></script>
-  <script src="voice.js"></script>
 </body>
 </html>
