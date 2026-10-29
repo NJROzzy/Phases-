@@ -2,7 +2,12 @@
 
 **Live site: [phases-pi.vercel.app](https://phases-pi.vercel.app)**
 
-A single page showing what I'm working on, one phase per project:
+The story of Nitish John Rawat (NJR), told in seven phases: foundations, robots that learn,
+research, building, teaching, current projects, and what's next. It opens with
+**"What do you want to know about NJR?"**, which answers questions from the story itself
+(`story.js`, no server needed) and links to the matching chapter.
+
+The current projects:
 
 | Phase | Project | Live site |
 |---|---|---|
@@ -12,8 +17,8 @@ A single page showing what I'm working on, one phase per project:
 
 ## Repository
 
-`index.html`, `script.js` and `styles.css` make up the static site; there is no build step.
-To add a phase, copy one of the `.phase` items in `index.html`; the cycle ring picks it up automatically.
+`index.html`, `script.js`, `story.js` and `styles.css` make up the static site; there is no build step.
+To add a phase, copy one of the `.phase` items in `index.html`. To teach the Ask box something new, add an entry to `ANSWERS` in `story.js`.
 
 ## Run locally
 

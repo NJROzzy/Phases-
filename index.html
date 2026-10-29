@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Phases of NJR</title>
-  <meta name="description" content="Phases of NJR — what I'm working on: Layers, Agent and Quantum.">
+  <meta name="description" content="Phases of NJR: the story of Nitish John Rawat, an AI/ML, software and robotics engineer, told in phases.">
   <meta name="theme-color" content="#050505">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,156 +17,302 @@
   <div class="grain" aria-hidden="true"></div>
   <div class="progress" aria-hidden="true"></div>
 
+  <nav class="rail" aria-label="Chapters">
+    <a href="#ask" data-label="Ask"></a>
+    <a href="#foundations" data-label="Foundations"></a>
+    <a href="#robots" data-label="Robots that learn"></a>
+    <a href="#research" data-label="Research"></a>
+    <a href="#building" data-label="Building"></a>
+    <a href="#teaching" data-label="Teaching"></a>
+    <a href="#phases" data-label="Now"></a>
+    <a href="#next" data-label="What's next"></a>
+  </nav>
+
   <header class="hero">
     <nav class="nav">
       <a href="#" class="logo">NJR</a>
       <ul>
-        <li><a href="#phases">Phases</a></li>
-        <li><a href="#cycle">Cycle</a></li>
+        <li><a href="#foundations">Story</a></li>
+        <li><a href="#ask">Ask</a></li>
         <li><a href="https://github.com/NJROzzy" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </nav>
     <div class="hero-content">
       <p class="eyebrow">Phases of NJR</p>
       <h1>
-        <span class="line"><span>Three phases of</span></span>
-        <span class="line"><span class="accent">what I'm building.</span></span>
+        <span class="line"><span>Nitish John Rawat.</span></span>
+        <span class="line"><span class="accent">A story in phases.</span></span>
       </h1>
       <p class="lede">
-        Each phase is a project I'm working on in public: learning the layers
-        under AI, building agents, and exploring quantum. Each one has its own
-        live site and repository.
+        <span class="rotator" aria-live="polite"><span id="role">AI/ML engineer</span></span><br>
+        Teaching machines to learn, robots to move, and people to build with AI,
+        from Worcester to Boston.
       </p>
-      <a href="#phases" class="button">Explore the phases</a>
+      <a href="#ask" class="button">Ask me anything &darr;</a>
     </div>
     <div class="scroll-hint" aria-hidden="true"></div>
   </header>
 
   <main>
-    <section id="phases" class="stages">
-      <h2 class="reveal">The three phases</h2>
-      <p class="section-intro reveal" style="--d: 0.1s">Click a phase to see what's in it.</p>
-
-      <ol class="timeline">
-        <li class="phase reveal">
-          <button class="phase-head" aria-expanded="false">
-            <span class="phase-num">01</span>
-            <span class="phase-title">Layers</span>
-            <span class="phase-tag">Foundations</span>
-            <span class="phase-icon" aria-hidden="true"></span>
-          </button>
-          <div class="phase-body"><div>
-            <p>A running log of my AI, ML and deep learning studies, one layer at a time:
-              notes, interactive labs and progress, from the math up to
-              robot simulators.</p>
-            <ul>
-              <li>Topics: math, Python and its libraries, ML and deep learning fundamentals, SQL, ROS, CUDA</li>
-              <li>Labs on neurons, XOR, gradient steps, learning rates, activations, initialization, BatchNorm and dropout</li>
-              <li>Simulation work in MuJoCo and Isaac Sim, plus biology and brain-and-nerve modules</li>
-            </ul>
-            <dl class="project-meta">
-              <div><dt>Repo</dt><dd>Layerschecklist</dd></div>
-              <div><dt>Active</dt><dd>Sep 2026</dd></div>
-              <div><dt>Stack</dt><dd>Next.js · Vercel</dd></div>
-            </dl>
-            <div class="project-links">
-              <a class="button small" href="https://layerschecklist.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
-              <a class="button small ghost" href="https://github.com/NJROzzy/Layerschecklist" target="_blank" rel="noopener">Repository &nearr;</a>
-            </div>
-          </div></div>
-        </li>
-
-        <li class="phase reveal">
-          <button class="phase-head" aria-expanded="false">
-            <span class="phase-num">02</span>
-            <span class="phase-title">Agent</span>
-            <span class="phase-tag">Building</span>
-            <span class="phase-icon" aria-hidden="true"></span>
-          </button>
-          <div class="phase-body"><div>
-            <p>A collaborative workspace with SA on agentic AI: systems that plan,
-              use tools, act and iterate toward a goal. Its live site traces how AI
-              went from rule-based automation to agents, and measures our repo
-              against the agentic standards of 2026.</p>
-            <ul>
-              <li>Started from PyTorch foundations and a live single-neuron XOR demo</li>
-              <li>Maps the protocols, orchestration, security and governance that define agents today</li>
-              <li>Collects agent tools, open-source projects, and our own R&amp;D, organized into four pillars</li>
-            </ul>
-            <dl class="project-meta">
-              <div><dt>Repo</dt><dd>AI-Agentic-Modal-Collaborative-</dd></div>
-              <div><dt>Active</dt><dd>Sep – Oct 2026</dd></div>
-              <div><dt>With</dt><dd>SA</dd></div>
-            </dl>
-            <div class="project-links">
-              <a class="button small" href="https://evolutionofaiagents-njr.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
-              <a class="button small ghost" href="https://github.com/NJROzzy/AI-Agentic-Modal-Collaborative-" target="_blank" rel="noopener">Repository &nearr;</a>
-            </div>
-          </div></div>
-        </li>
-
-        <li class="phase reveal">
-          <button class="phase-head" aria-expanded="false">
-            <span class="phase-num">03</span>
-            <span class="phase-title">Quantum</span>
-            <span class="phase-tag">Frontier</span>
-            <span class="phase-icon" aria-hidden="true"></span>
-          </button>
-          <div class="phase-body"><div>
-            <p>An interactive field guide to quantum physics: its history, its
-              real-world applications, and the research happening now.</p>
-            <ul>
-              <li>A lab with a qubit studio, double slit, entanglement (CHSH) and tunneling experiments</li>
-              <li>A quantum universe of 119 connected topics and a six-chapter evolution story</li>
-              <li>Quantum Live, a feed of new research from arXiv, IBM, Google Quantum AI, MIT and Nature</li>
-            </ul>
-            <dl class="project-meta">
-              <div><dt>Repo</dt><dd>QuantumApplications</dd></div>
-              <div><dt>Active</dt><dd>Oct 2026</dd></div>
-              <div><dt>Stack</dt><dd>HTML · CSS · JS · Node</dd></div>
-            </dl>
-            <div class="project-links">
-              <a class="button small" href="https://quantumapplicationsbynjr.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
-              <a class="button small ghost" href="https://github.com/NJROzzy/QuantumApplications" target="_blank" rel="noopener">Repository &nearr;</a>
-            </div>
-          </div></div>
-        </li>
-      </ol>
+    <!-- Ask -->
+    <section id="ask" class="ask chapter-anchor">
+      <h2 class="reveal">What do you want to know about NJR?</h2>
+      <p class="section-intro reveal" style="--d: 0.1s">Ask a question, or pick one to start.</p>
+      <form id="ask-form" class="ask-form reveal" style="--d: 0.15s" autocomplete="off">
+        <label class="sr-only" for="ask-input">Your question</label>
+        <input id="ask-input" type="text" placeholder="e.g. What is NJR working on now?" maxlength="200">
+        <button class="button small" type="submit">Ask</button>
+      </form>
+      <div class="chips reveal" style="--d: 0.2s" id="chips"></div>
+      <div id="answer" class="answer" aria-live="polite" hidden>
+        <p class="answer-q" id="answer-q"></p>
+        <p class="answer-a" id="answer-a"></p>
+        <a class="answer-link" id="answer-link" href="#" hidden>Read this chapter &darr;</a>
+      </div>
     </section>
 
-    <section id="cycle" class="cycle">
-      <h2 class="reveal">Learn, build, explore</h2>
-      <p class="section-intro reveal" style="--d: 0.1s">
-        Each phase feeds the next: the layers make the agents possible, and the
-        frontier sends me back to learn again.
-      </p>
-      <div class="orbit reveal" style="--d: 0.2s" aria-hidden="true">
-        <div class="orbit-ring"></div>
-        <div class="orbit-ring r2"></div>
-        <div class="orbit-arm"></div>
-        <div class="orbit-center">
-          <span id="ring-num">01</span>
-          <span id="ring-label">Layers</span>
+    <!-- Chapter 1 -->
+    <section id="foundations" class="chapter">
+      <div class="chapter-num" aria-hidden="true">01</div>
+      <div class="chapter-body">
+        <p class="eyebrow reveal">Phase 01 · Foundations</p>
+        <h2 class="words">I came to Worcester to learn how machines learn.</h2>
+        <p class="reveal">
+          I studied Machine Learning for Robotics at Worcester Polytechnic Institute,
+          then completed a STEM Master's in Computer Science at Clark University.
+          Data structures, algorithms, distributed systems, and the math under deep
+          learning became my toolkit.
+        </p>
+        <div class="stats reveal">
+          <div class="stat"><span class="count" data-to="4.0" data-decimals="1">0</span><span>GPA, ML for Robotics at WPI · May 2025</span></div>
+          <div class="stat"><span class="count" data-to="6">0</span><span>Languages: Python, C++, Java, SQL, Rust, Dart</span></div>
         </div>
+      </div>
+    </section>
+
+    <!-- Chapter 2 -->
+    <section id="robots" class="chapter">
+      <div class="chapter-num" aria-hidden="true">02</div>
+      <div class="chapter-body">
+        <p class="eyebrow reveal">Phase 02 · Robots that learn</p>
+        <h2 class="words">Then I taught robots to learn by trial, and by watching.</h2>
+        <div class="cards">
+          <article class="card reveal">
+            <h3>Reinforcement learning in simulation</h3>
+            <p>Built multi-task MuJoCo environments and benchmarked DDPG and A3C agents for
+              continuous control: convergence, reward shaping, and policy robustness.</p>
+            <p class="tags">Python · MuJoCo · DDPG · A3C</p>
+          </article>
+          <article class="card reveal" style="--d: 0.1s">
+            <h3>Imitation learning for peg-in-hole</h3>
+            <p>Implemented the Action Chunking Transformer (ACT) for contact-rich insertion, using
+              3-view RGB, joint states and end-effector pose. It outperformed RL baselines on
+              sub-millimeter precision tasks.</p>
+            <p class="tags">Python · MuJoCo · PyTorch</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 3 -->
+    <section id="research" class="chapter">
+      <div class="chapter-num" aria-hidden="true">03</div>
+      <div class="chapter-body">
+        <p class="eyebrow reveal">Phase 03 · Research</p>
+        <h2 class="words">Research taught me to question the models.</h2>
+        <p class="reveal">
+          As Treasurer and Research Coordinator of Clark University's IEEE Student Chapter,
+          I benchmarked ANN, DNN and XGBoost models, led LLM evaluation research as
+          Team Cassini, and organized hackathons and workshops.
+        </p>
+        <div class="stats reveal">
+          <div class="stat"><span class="count" data-to="2">0</span><span>Peer-reviewed papers accepted by Taylor &amp; Francis</span></div>
+        </div>
+        <ul class="pubs reveal">
+          <li>Surgical Decision Making for Renal Cell Carcinoma using Machine Learning Models</li>
+          <li>Feature Selection for Renal Cancer Across Geographic Regions using AI Techniques</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Chapter 4 -->
+    <section id="building" class="chapter">
+      <div class="chapter-num" aria-hidden="true">04</div>
+      <div class="chapter-body">
+        <p class="eyebrow reveal">Phase 04 · Building</p>
+        <h2 class="words">Then I shipped software people actually use.</h2>
+        <div class="cards">
+          <article class="card reveal">
+            <h3>Founding Engineer, BrighterRoots</h3>
+            <p class="when">Sep 2025 – present · Worcester, MA</p>
+            <p>Architected and shipped a cross-platform EdTech mobile app from zero (Flutter/Dart,
+              Swift, Firebase). I own the architecture, roadmap and CI/CD, and set the
+              code review standards.</p>
+          </article>
+          <article class="card reveal" style="--d: 0.1s">
+            <h3>AI voice agent platform</h3>
+            <p>A real-time autonomous voice agent built with GPT-4o, Whisper and Twilio. It
+              combines an LLM with a state machine, plus session memory, TTS caching and a
+              modular FastAPI backend, and runs in production.</p>
+            <p class="tags">Python · FastAPI · Twilio · Whisper</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 5 -->
+    <section id="teaching" class="chapter">
+      <div class="chapter-num" aria-hidden="true">05</div>
+      <div class="chapter-body">
+        <p class="eyebrow reveal">Phase 05 · Teaching</p>
+        <h2 class="words">Now I help others build with AI.</h2>
+        <div class="cards">
+          <article class="card reveal">
+            <h3>Instructor, NVIDIA ML &amp; AI Academy</h3>
+            <p class="when">May – Aug 2026 · iD Tech @ MIT, Cambridge</p>
+            <p>Taught NVIDIA's AI/ML curriculum: local LLM deployment with Rust, Ubuntu and
+              Docker, and edge AI with Jetson Inference.</p>
+          </article>
+          <article class="card reveal" style="--d: 0.1s">
+            <h3>Adjunct Instructor, AI Algorithms II</h3>
+            <p class="when">Sep 2026 – present · Boston College</p>
+            <p>Designing and teaching ADAN 7603 at the Woods College of Advancing Studies:
+              PyTorch, transformers, diffusion models and reinforcement learning for graduate
+              students.</p>
+          </article>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><span class="count" data-to="41">0</span><span>Student codebases reviewed and debugged</span></div>
+          <div class="stat"><span class="count" data-to="100" data-suffix="%">0</span><span>Project completion rate</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 6: current projects -->
+    <section id="phases" class="chapter">
+      <div class="chapter-num" aria-hidden="true">06</div>
+      <div class="chapter-body">
+        <p class="eyebrow reveal">Phase 06 · Now</p>
+        <h2 class="words">And I keep learning in public.</h2>
+        <p class="reveal">Three projects I'm building right now. Click one to open it.</p>
+
+        <ol class="timeline">
+          <li class="phase reveal">
+            <button class="phase-head" aria-expanded="false">
+              <span class="phase-num">01</span>
+              <span class="phase-title">Layers</span>
+              <span class="phase-tag">Foundations</span>
+              <span class="phase-icon" aria-hidden="true"></span>
+            </button>
+            <div class="phase-body"><div>
+              <p>A running log of my AI, ML and deep learning studies, one layer at a time:
+                notes, interactive labs and progress, from the math up to
+                robot simulators.</p>
+              <ul>
+                <li>Topics: math, Python and its libraries, ML and deep learning fundamentals, SQL, ROS, CUDA</li>
+                <li>Labs on neurons, XOR, gradient steps, learning rates, activations, initialization, BatchNorm and dropout</li>
+                <li>Simulation work in MuJoCo and Isaac Sim, plus biology and brain-and-nerve modules</li>
+              </ul>
+              <dl class="project-meta">
+                <div><dt>Repo</dt><dd>Layerschecklist</dd></div>
+                <div><dt>Active</dt><dd>Sep 2026</dd></div>
+                <div><dt>Stack</dt><dd>Next.js · Vercel</dd></div>
+              </dl>
+              <div class="project-links">
+                <a class="button small" href="https://layerschecklist.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
+                <a class="button small ghost" href="https://github.com/NJROzzy/Layerschecklist" target="_blank" rel="noopener">Repository &nearr;</a>
+              </div>
+            </div></div>
+          </li>
+
+          <li class="phase reveal">
+            <button class="phase-head" aria-expanded="false">
+              <span class="phase-num">02</span>
+              <span class="phase-title">Agent</span>
+              <span class="phase-tag">Building</span>
+              <span class="phase-icon" aria-hidden="true"></span>
+            </button>
+            <div class="phase-body"><div>
+              <p>A collaborative workspace with SA on agentic AI: systems that plan,
+                use tools, act and iterate toward a goal. Its live site traces how AI
+                went from rule-based automation to agents, and measures our repo
+                against the agentic standards of 2026.</p>
+              <ul>
+                <li>Started from PyTorch foundations and a live single-neuron XOR demo</li>
+                <li>Maps the protocols, orchestration, security and governance that define agents today</li>
+                <li>Collects agent tools, open-source projects, and our own R&amp;D, organized into four pillars</li>
+              </ul>
+              <dl class="project-meta">
+                <div><dt>Repo</dt><dd>AI-Agentic-Modal-Collaborative-</dd></div>
+                <div><dt>Active</dt><dd>Sep – Oct 2026</dd></div>
+                <div><dt>With</dt><dd>SA</dd></div>
+              </dl>
+              <div class="project-links">
+                <a class="button small" href="https://evolutionofaiagents-njr.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
+                <a class="button small ghost" href="https://github.com/NJROzzy/AI-Agentic-Modal-Collaborative-" target="_blank" rel="noopener">Repository &nearr;</a>
+              </div>
+            </div></div>
+          </li>
+
+          <li class="phase reveal">
+            <button class="phase-head" aria-expanded="false">
+              <span class="phase-num">03</span>
+              <span class="phase-title">Quantum</span>
+              <span class="phase-tag">Frontier</span>
+              <span class="phase-icon" aria-hidden="true"></span>
+            </button>
+            <div class="phase-body"><div>
+              <p>An interactive field guide to quantum physics: its history, its
+                real-world applications, and the research happening now.</p>
+              <ul>
+                <li>A lab with a qubit studio, double slit, entanglement (CHSH) and tunneling experiments</li>
+                <li>A quantum universe of 119 connected topics and a six-chapter evolution story</li>
+                <li>Quantum Live, a feed of new research from arXiv, IBM, Google Quantum AI, MIT and Nature</li>
+              </ul>
+              <dl class="project-meta">
+                <div><dt>Repo</dt><dd>QuantumApplications</dd></div>
+                <div><dt>Active</dt><dd>Oct 2026</dd></div>
+                <div><dt>Stack</dt><dd>HTML · CSS · JS · Node</dd></div>
+              </dl>
+              <div class="project-links">
+                <a class="button small" href="https://quantumapplicationsbynjr.vercel.app" target="_blank" rel="noopener">Live site &nearr;</a>
+                <a class="button small ghost" href="https://github.com/NJROzzy/QuantumApplications" target="_blank" rel="noopener">Repository &nearr;</a>
+              </div>
+            </div></div>
+          </li>
+        </ol>
       </div>
     </section>
 
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>Layers</span><span>Agent</span><span>Quantum</span>
-        <span>Layers</span><span>Agent</span><span>Quantum</span>
-        <span>Layers</span><span>Agent</span><span>Quantum</span>
-        <span>Layers</span><span>Agent</span><span>Quantum</span>
+        <span>Python</span><span>C++</span><span>PyTorch</span><span>MuJoCo</span><span>Rust</span>
+        <span>LLMs</span><span>Agents</span><span>FastAPI</span><span>Docker</span><span>AWS</span>
+        <span>Python</span><span>C++</span><span>PyTorch</span><span>MuJoCo</span><span>Rust</span>
+        <span>LLMs</span><span>Agents</span><span>FastAPI</span><span>Docker</span><span>AWS</span>
       </div>
     </div>
 
-    <section id="about" class="about">
-      <h2 class="reveal">About</h2>
-      <p class="reveal" style="--d: 0.1s">
-        I'm NJR. Phases is where I keep track of what I'm working on. New phases
-        get added as new projects begin.
-      </p>
-      <a href="https://github.com/NJROzzy" target="_blank" rel="noopener" class="button reveal" style="--d: 0.2s; margin-top: 32px">Follow on GitHub &rarr;</a>
+    <!-- Epilogue -->
+    <section id="next" class="chapter">
+      <div class="chapter-num" aria-hidden="true">07</div>
+      <div class="chapter-body">
+        <p class="eyebrow reveal">Phase 07 · What's next</p>
+        <h2 class="words">The next phase is the one we build together.</h2>
+        <p class="reveal">
+          I'm looking for AI/ML, software and robotics engineering roles in Massachusetts,
+          where research meets production.
+        </p>
+        <div class="skills reveal">
+          <div><h3>Languages</h3><p>Python, C++, Java, SQL, Rust, Dart</p></div>
+          <div><h3>ML &amp; AI</h3><p>LLMs, agentic workflows, deep learning, RL (DDPG, A3C), imitation learning (ACT), Jetson Inference</p></div>
+          <div><h3>Cloud &amp; tools</h3><p>AWS, Azure, GCP, Docker, FastAPI, Firebase, PostgreSQL, CI/CD, Linux, TensorFlow</p></div>
+        </div>
+        <div class="project-links reveal">
+          <a class="button" href="mailto:nitishjohnrawat@gmail.com">Email me &rarr;</a>
+          <a class="button ghost" href="https://github.com/NJROzzy" target="_blank" rel="noopener">GitHub &nearr;</a>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -175,5 +321,7 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="story.js"></script>
+  <script src="extras.js" defer></script>
 </body>
 </html>
